@@ -19,6 +19,10 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <div className="navbar">
+          <div className='logInOut'>
+          <a className='nav-btn' href="/write">글쓰기</a>
+          <a className='nav-btn' href="/list">목록</a>
+          </div>
           {session ? <LogOutBtn/> : <LoginBtn/>}
         </div>
         {children}

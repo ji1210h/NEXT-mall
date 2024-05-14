@@ -11,7 +11,7 @@ export default async function List(){
     const db = (await connectDB).db("forum")
     let result = await db.collection("post").find().toArray()
     let session = await getServerSession(authOptions)
-    console.log(session)
+    // console.log(session)
 
     return(
       <div className="list-bg">

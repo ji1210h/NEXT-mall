@@ -20,29 +20,31 @@ export default function ListItem({result, session}){
                 result.map((a,i)=>{
                     return(
                     <div className="list-item" key={i}>
-                        <Link href={`./detail/${result[i]._id}`}>
-                            <h4>{result[i].title}</h4>
-                        </Link>
-                        {/* <DetailLink/> */}
-                        <p>{result[i].content}</p>
+                        <div className="content">
+                            <Link href={`./detail/${result[i]._id}`}>
+                                <h4>{result[i].title}</h4>
+                            </Link>
+                            {/* <DetailLink/> */}
+                            <p>{result[i].content}</p>
+                        </div>
                         {session && result[i].author == session.user.email ?
-                        <div>
-                            <Link href={`/edit/${result[i]._id}`}>수정</Link> &nbsp;
-                            <span className='spanBtn' onClick={(e)=>
-                                fetch('/api/delete', { method: 'DELETE', body: result[i]._id}) 
-                                //POST 요청은 body 필요, 정보를 서버에 보내고 싶을 때 body를 쓰기때문에 id전송에 필요
-                                //서버로 array, object보낼땐 JSON.stringify()사용
-                                .then((r)=>{return r.json()}) //Ajax로 서버에 요청, GET요청 날려줌, form으로 하면 항상 새로고침 but Ajax는 안함
-                                .then(()=>{
-                                    e.target.parentElement.parentElement.style.opacity = 0;
-    
-                                    //1초 지나면 안에 코드 실행해라
-                                    setTimeout(()=>{
-                                        e.target.parentElement.parentElement.style.display = 'none';
-                                    },1000)
-                                })
-                            }>삭제</span> 
-                        </div> : console.log('실패')
+                            <div className="btnSet">
+                                <Link className='spanBtn' href={`/edit/${result[i]._id}`}>수정</Link> &nbsp;
+                                <span className='spanBtn' onClick={(e)=>
+                                    fetch('/api/delete', { method: 'DELETE', body: result[i]._id}) 
+                                    //POST 요청은 body 필요, 정보를 서버에 보내고 싶을 때 body를 쓰기때문에 id전송에 필요
+                                    //서버로 array, object보낼땐 JSON.stringify()사용
+                                    .then((r)=>{return r.json()}) //Ajax로 서버에 요청, GET요청 날려줌, form으로 하면 항상 새로고침 but Ajax는 안함
+                                    .then(()=>{
+                                        e.target.parentElement.parentElement.style.opacity = 0;
+        
+                                        //1초 지나면 안에 코드 실행해라
+                                        setTimeout(()=>{
+                                            e.target.parentElement.parentElement.style.display = 'none';
+                                        },1000)
+                                    })
+                                }>삭제</span> 
+                            </div> : console.log('실패')
                     }
                     </div>  
                     )
