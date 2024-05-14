@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useEffect } from "react"
 
-export default function ListItem({result}){
+export default function ListItem({result, session}){
+    
 
     // useEffect(()=>{
     //     // 서버에 부탁해서 DB게시물 가져옴
@@ -24,24 +25,27 @@ export default function ListItem({result}){
                         </Link>
                         {/* <DetailLink/> */}
                         <p>{result[i].content}</p>
-                        <Link href={`/edit/${result[i]._id}`}>수정</Link>
-                        {/* <form method="DELETE"> */}
-                        <span className='spanBtn' onClick={()=>
-                            fetch('/URL')
-                            .then((r)=>{
-                                if(r.status == 200) {
-                                return r.json()
-                                } else {
-                                //서버가 에러코드전송시 실행할코드
-                                }
-                            })
-                            .then((result)=>{ 
-                              //성공시 실행할코드
-                            }).catch((error)=>{
-                              //인터넷문제 등으로 실패시 실행할코드
-                              console.log(error)
-                            })
-                        }>삭제</span>
+                        {session && result[i].author == session.user.email ?
+                        <div>
+                            <Link href={`/edit/${result[i]._id}`}>수정</Link> &nbsp;
+                            <span className='spanBtn' onClick={()=>
+                                fetch('/URL')
+                                .then((r)=>{
+                                    if(r.status == 200) {
+                                    return r.json()
+                                    } else {
+                                    //서버가 에러코드전송시 실행할코드
+                                    }
+                                })
+                                .then((result)=>{ 
+                                //성공시 실행할코드
+                                }).catch((error)=>{
+                                //인터넷문제 등으로 실패시 실행할코드
+                                console.log(error)
+                                })
+                            }>삭제</span>
+                        </div> : console.log('실패')
+                    }
                     </div>  
                     )
                 })
