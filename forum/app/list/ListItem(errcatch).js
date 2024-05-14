@@ -28,22 +28,20 @@ export default function ListItem({result, session}){
                         {session && result[i].author == session.user.email ?
                         <div>
                             <Link href={`/edit/${result[i]._id}`}>수정</Link> &nbsp;
-                            <span className='spanBtn' onClick={()=>
-                                fetch('/URL')
-                                .then((r)=>{
-                                    if(r.status == 200) {
-                                    return r.json()
-                                    } else {
-                                    //서버가 에러코드전송시 실행할코드
-                                    }
+                            <span className='spanBtn' onClick={(e)=>
+                                fetch('/api/delete', { method: 'DELETE', body: result[i]._id}) 
+                                //POST 요청은 body 필요, 정보를 서버에 보내고 싶을 때 body를 쓰기때문에 id전송에 필요
+                                //서버로 array, object보낼땐 JSON.stringify()사용
+                                .then((r)=>{return r.json()}) //Ajax로 서버에 요청, GET요청 날려줌, form으로 하면 항상 새로고침 but Ajax는 안함
+                                .then(()=>{
+                                    e.target.parentElement.parentElement.style.opacity = 0;
+    
+                                    //1초 지나면 안에 코드 실행해라
+                                    setTimeout(()=>{
+                                        e.target.parentElement.parentElement.style.display = 'none';
+                                    },1000)
                                 })
-                                .then((result)=>{ 
-                                //성공시 실행할코드
-                                }).catch((error)=>{
-                                //인터넷문제 등으로 실패시 실행할코드
-                                console.log(error)
-                                })
-                            }>삭제</span>
+                            }>삭제</span> 
                         </div> : console.log('실패')
                     }
                     </div>  

@@ -15,7 +15,6 @@ export default async function ListItem({result}){
     // },[])
 
     let session = await getServerSession(authOptions)
-    let a
     // console.log(result)
 
     return(
