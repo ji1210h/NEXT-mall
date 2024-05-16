@@ -14,7 +14,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   let session = await getServerSession(authOptions) //서버컴포넌트,서버기능 안에서 사용가능한 함수
-  console.log(session)
+  // console.log(session)
   return (
     <html lang="en">
       <body className={inter.className}>

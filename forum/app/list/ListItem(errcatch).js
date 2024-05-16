@@ -37,14 +37,13 @@ export default function ListItem({result, session}){
                                     .then((r)=>{return r.json()}) //Ajax로 서버에 요청, GET요청 날려줌, form으로 하면 항상 새로고침 but Ajax는 안함
                                     .then(()=>{
                                         e.target.parentElement.parentElement.style.opacity = 0;
-        
                                         //1초 지나면 안에 코드 실행해라
                                         setTimeout(()=>{
                                             e.target.parentElement.parentElement.style.display = 'none';
                                         },1000)
                                     })
                                 }>삭제</span> 
-                            </div> : console.log('실패')
+                            </div> : console.log(result[i].title)
                     }
                     </div>  
                     )

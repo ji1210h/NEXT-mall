@@ -8,8 +8,12 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]"
 export const dynamic = 'force-dynamic'
 
 export default async function List(){
-    const db = (await connectDB).db("forum")
-    let result = await db.collection("post").find().toArray()
+  const db = (await connectDB).db('forum')
+  let result = await db.collection('post').find().toArray()
+  result = result.map((a)=>{
+    a._id = a._id.toString()
+    return a
+  })
     let session = await getServerSession(authOptions)
     // console.log(session)
 
