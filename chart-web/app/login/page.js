@@ -7,23 +7,22 @@ const api = axios.create({
   withCredentials: true,
 });
 
-async function App() {
+function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
-  // 사용할 변수 : 아이디, 비밀번호, 로그인 성공 후 서버에서 전송받은 사용자 정보 - 여기서는 아이디만 받음
+//   const [user, setUser] = useState(null);
+// 사용할 변수 : 아이디, 비밀번호, 로그인 성공 후 서버에서 전송받은 사용자 정보 - 여기서는 아이디만 받음
 
   useEffect(() => {
-    api.get('/user').then(response => {
-      setUser(response.data);
+    api.get('/').then(() => {
+        console.log("GET!!!!!")
     });
   }, []);
 
   const login = () => {
-    api.post('/login', { email, password }).then(response => {
-      console.log(response.data);
-      setUser({ email }); // 사용자 이름을 객체로 설정
-    }).catch(error => {
+    api.post('/login', { email, password })
+    .then(()=>console.log("POST!!!!!"))
+    .catch(error => {
       console.error(error.response.data);
     });
   };
@@ -47,7 +46,7 @@ async function App() {
       </div>
       <button onClick={login}>Login</button>
       <div>
-        {user ? <h2>Welcome, {user.email}</h2> : <h2>Please log in</h2>}
+        {/* {user ? <h2>Welcome, {user.email}</h2> : <h2>Please log in</h2>} */}
       </div>
     </div>
   );
