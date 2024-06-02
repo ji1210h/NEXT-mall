@@ -15,7 +15,7 @@ export default async function List(){
     return a
   })
     let session = await getServerSession(authOptions)
-    // console.log(session)
+    // console.log("---------------"+session) //null??
 
     return(
       <div className="list-bg">

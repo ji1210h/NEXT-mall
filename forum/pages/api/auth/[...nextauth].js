@@ -4,11 +4,12 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt';
-import { getRedirectTypeFromError } from "next/dist/client/components/redirect";
 
 export const authOptions = {
   providers: [
     GithubProvider({
+      clientId: 'Github에서 발급받은 ID',
+      clientSecret: 'Github에서 발급받은 Secret',
     }),
 
     CredentialsProvider({
@@ -65,6 +66,6 @@ export const authOptions = {
   },
 
   adapter: MongoDBAdapter(connectDB),
-  secret: 'qwer1234'  //.env 를 만들어 보관?
+  secret: 'qwer1234'  
 };
-export default NextAuth(authOptions); 
+export default NextAuth(authOptions);
